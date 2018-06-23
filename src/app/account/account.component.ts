@@ -13,11 +13,15 @@ export class AccountComponent {
   @Input() id: number;
 
   constructor( private accountService: AccountService) {
+    this.accountService.statusUpdated.subscribe((status: string) => {
+alert('new status:' + ' ' + status);
+    });
 
   }
 
   onSetTo(status: string) {
     this.accountService.updateStatus(this.id, status);
     // this.loggingService.logStatusChanged(status);
+    this.accountService.statusUpdated.emit(status);
   }
 }
